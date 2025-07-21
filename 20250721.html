@@ -1,0 +1,126 @@
+<h1>MTI战队视觉方案开源</h1>
+<h2>前言</h2>
+<hr>
+<p>在初步研究了排球比赛的规则之后，我们组内成员偏向于认为视觉方案在这次比赛中可能会有一个比较重要的作用。但是在实际比赛中，我们发现部分队伍因为灯光影响而放弃视觉方案。部分学校则是采取了风格特异的抗干扰方案排除灯光影响。例如某大学是采取了现场标记数据集，而另一个大学则是数据集一开始就使用蓝色为主的排球，由此达成抗干扰效果。尽管由于其他问题我们的视觉识别并未起到作用，但是鉴于实地测试表现我决定仍然将其开源。<br></p>
+<h2>一、代码功能综述</h2>
+<hr>
+<p>本代码结构为d415_ubuntu.py作为主程序，anti_light.py作为抗灯光部分，Serial_akatsuki_simple.py作为串口通讯相关的函数处理（包括数据内容以及编码发送），pid_akatsuki.py是用于跟踪的pid控制器。run.bat是为win环境准备的启动程序（win版本主程序为d415）。<br>
+本代码不依赖ros，需求python版本3.9及以上，3.10经过测试稳定运行。要求库已经内置在requirementa.txt中。ubuntu需要使用python命令启动。程序启动时需要接入xinput支持的手柄，realsense d4系列带rgb摄像头（d410可以使用深度摄像头传输rgb流，d430不行），以及ch340（我们的方案是自带ch340的nrf24射频）</p>
+<h2>二、主函数代码解析</h2>
+<hr>
+<p>12行开始代码部分</p>
+<pre><code class="code-highlight"><span class="code-line line-number" line="1">pipeline = rs.pipeline()  #定义流程pipeline
+</span><span class="code-line line-number" line="2">config = rs.config()   #定义配置config
+</span><span class="code-line line-number" line="3">config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 60)  #配置depth流
+</span><span class="code-line line-number" line="4">config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 60)   #配置color流
+</span><span class="code-line line-number" line="5">profile = pipeline.start(config)  #流程开始
+</span><span class="code-line line-number" line="6">align_to = rs.stream.color  #与color流对齐
+</span><span class="code-line line-number" line="7">align = rs.align(align_to)
+</span></code></pre>
+<p>以上是realsense相关的初始化<br></p>
+<pre><code class="code-highlight"><span class="code-line line-number" line="1"># 全局变量,用于存储模型和摄像头对象
+</span><span class="code-line line-number" line="2">model = None
+</span><span class="code-line line-number" line="3">cap = None
+</span><span class="code-line line-number" line="4">track = 0
+</span><span class="code-line line-number" line="5">act_model = 0  # 用于控制动作的变量
+</span><span class="code-line line-number" line="6">X,Y,RIGHT_X,RIGHT_Y= 0,0,0,0    # 控制移动的变量
+</span><span class="code-line line-number" line="7"># 设置模型配置
+</span><span class="code-line line-number" line="8">script_dir = Path(__file__).parent
+</span><span class="code-line line-number" line="9">file_path = script_dir / 'model' / 'yolo11s.pt'
+</span><span class="code-line line-number" line="10">
+</span><span class="code-line line-number" line="11">model_config = {
+</span><span class="code-line line-number" line="12">    'model_path': str(file_path),
+</span><span class="code-line line-number" line="13">    'download_url': 'https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n.pt'
+</span><span class="code-line line-number" line="14">}
+</span><span class="code-line line-number" line="15">
+</span><span class="code-line line-number" line="16"># 推理参数
+</span><span class="code-line line-number" line="17">predict_config = {
+</span><span class="code-line line-number" line="18">    'conf_thres': 0.6,
+</span><span class="code-line line-number" line="19">    'iou_thres': 0.2,
+</span><span class="code-line line-number" line="20">    'imgsz': 640,
+</span><span class="code-line line-number" line="21">    'line_width': 2,
+</span><span class="code-line line-number" line="22">    'device': 'cuda:0' if torch.cuda.is_available() else 'cpu'
+</span><span class="code-line line-number" line="23">}
+</span><span class="code-line line-number" line="24">def init_inference(confidence, iou):
+</span><span class="code-line line-number" line="25">    global model
+</span><span class="code-line line-number" line="26">    # 加载 YOLO 模型
+</span><span class="code-line line-number" line="27">    model = YOLO(model_config['model_path']).to(predict_config['device'])
+</span><span class="code-line line-number" line="28">    return True
+</span></code></pre>
+<p>这里是关于yolo推理部分的初始化，其中<code>X,Y,RIGHT_X,RIGHT_Y= 0,0,0,0</code>会在稍后作为传入信息数组的变量，提前进行全局声明和初始化。<code>model_config</code>是模型的路径，仍然保留了网络下载路径，但是实际代码中没有相关功能。<code>init_inference</code>函数用于初始化模型，若初始化成功会返回true。<br>
+接下来直接转到识别部分</p>
+<pre><code class="language-async code-highlight"><span class="code-line line-number" line="1">    global frame1,rgb,center1
+</span><span class="code-line line-number" line="2">    # 读取摄像头的帧
+</span><span class="code-line line-number" line="3">    frame1 = rgb.copy()
+</span><span class="code-line line-number" line="4">    # 使用 YOLO 模型进行推理,并传入置信度和 IoU 阈值
+</span><span class="code-line line-number" line="5">    results1 = model(frame1, conf=0.5, iou=0.7)
+</span><span class="code-line line-number" line="6">    detect_len = len(results1[0].boxes)  #获取检测结果的长度
+</span><span class="code-line line-number" line="7">    # 获取检测结果的坐标并绘制检测框    
+</span><span class="code-line line-number" line="8">    boxes1 = []
+</span><span class="code-line line-number" line="9">    if detect_len != 0:
+</span><span class="code-line line-number" line="10">        for r in results1:
+</span><span class="code-line line-number" line="11">            for box in r.boxes:
+</span><span class="code-line line-number" line="12">                xyxy = box.xyxy[0].cpu().numpy().astype(int)
+</span><span class="code-line line-number" line="13">                boxes1.append(xyxy)
+</span><span class="code-line line-number" line="14">                cv2.rectangle(frame1, (xyxy[0], xyxy[1]), (xyxy[2], xyxy[3]), (0, 255, 0), 2)
+</span><span class="code-line line-number" line="15">                center1 = np.array([x_center1, y_center1])
+</span><span class="code-line line-number" line="16">    else:
+</span><span class="code-line line-number" line="17">        print("未检测到目标")
+</span><span class="code-line line-number" line="18">        center1 = np.array([320, 5])
+</span></code></pre>
+<p>这段代码对应yolo的识别部分。由于anti_light代码在nuc上，后续会惊醒补充。<br>
+接下来来到代码的主函数部分，108行开始：</p>
+<pre><code class="language-model code-highlight"><span class="code-line line-number" line="1">    global actX,act_dis
+</span><span class="code-line line-number" line="2">    x_center1 = 320
+</span><span class="code-line line-number" line="3">    y_center1 = 240
+</span><span class="code-line line-number" line="4">    center1 = np.array([x_center1, y_center1])
+</span><span class="code-line line-number" line="5">
+</span><span class="code-line line-number" line="6">    actX = pid.ProportionalPID(
+</span><span class="code-line line-number" line="7">        kd= 260,
+</span><span class="code-line line-number" line="8">        ki= 0,
+</span><span class="code-line line-number" line="9">        kp= 180,
+</span><span class="code-line line-number" line="10">        deadband= 0.01
+</span><span class="code-line line-number" line="11">    )
+</span><span class="code-line line-number" line="12">    act_dis = pid.ProportionalPID(
+</span><span class="code-line line-number" line="13">        kd= 220,
+</span><span class="code-line line-number" line="14">        ki= 0,
+</span><span class="code-line line-number" line="15">        kp= 160,
+</span><span class="code-line line-number" line="16">        deadband= 0.001
+</span><span class="code-line line-number" line="17">    )
+</span></code></pre>
+<p>提前声明部分变量，实例化需要用到的两个pid控制器（对应水平和竖直方向）<br>
+接下来是串口选择部分，这个部分目前只有win版本有效，ubuntu版本已经删除。选择串口时，用手柄的hat（十字键）进行选择，上下为加减5，左右加减1（ubuntu版本功能为上下加减1）。选择完成后，按下手柄A按键确定串口。<br>
+170行的<code>asyncio.run(detect())   #协程推理</code>使用了asyncio库进行协程，达到优化推理产生的控制延迟的效果。实际上发现在一定程度上也优化了推理性能。<br>
+173行开始的这段代码中</p>
+<pre><code class="code-highlight"><span class="code-line line-number" line="1">    x = int(center1[0])
+</span><span class="code-line line-number" line="2">    y = int(center1[1])
+</span><span class="code-line line-number" line="3">    #(x, y)点的真实深度值
+</span><span class="code-line line-number" line="4">    dis = aligned_depth_frame.get_distance(x, y)  
+</span><span class="code-line line-number" line="5">    #(x, y)点在相机坐标系下的真实值,为一个三维向量。其中camera_coordinate[2]仍为dis,camera_coordinate[0]和camera_coordinate[1]为相机坐标系下的xy真实距离。
+</span><span class="code-line line-number" line="6">    camera_coordinate = rs.rs2_deproject_pixel_to_point(depth_intrin, [x, y], dis)  
+</span><span class="code-line line-number" line="7">    if camera_coordinate != (0.0,0.0,0.0):
+</span><span class="code-line line-number" line="8">        last_coordinate = camera_coordinate
+</span><span class="code-line line-number" line="9">        print(camera_coordinate)
+</span><span class="code-line line-number" line="10">    else:
+</span><span class="code-line line-number" line="11">        print(last_coordinate)
+</span></code></pre>
+<p>这段代码会对像素坐标进行获取。由于深度摄像头在距离过近的目标识别会输出0，0，0的坐标值，因此会对目标最后的位置进行检测，决定是否写入坐标值<br></p>
+<p>接下来是198行，对应动作组</p>
+<pre><code class="code-highlight"><span class="code-line line-number" line="1">    # 执行动作组
+</span><span class="code-line line-number" line="2">    if sc.joystick.get_button(13) == 1:
+</span><span class="code-line line-number" line="3">        if camera_coordinate[2] !=0.0:
+</span><span class="code-line line-number" line="4">            act_group = 1
+</span><span class="code-line line-number" line="5">        else:
+</span><span class="code-line line-number" line="6">            act_group = 2
+</span><span class="code-line line-number" line="7">    else:
+</span><span class="code-line line-number" line="8">        act_group = 0
+</span><span class="code-line line-number" line="9">
+</span><span class="code-line line-number" line="10">    action_group(act_group)
+</span><span class="code-line line-number" line="11">    act_group = 0
+</span></code></pre>
+<p>这段代码在手柄左摇杆按下时会进入自动跟踪状态，同时通过目标不同状态选择动作组。在执行程序<code>action_group</code>结束后<code>act_group</code>会归为0，防止动作重复执行。</p>
+<pre><code class="code-highlight"><span class="code-line line-number" line="1">    sc.time.sleep(0.01)
+</span><span class="code-line line-number" line="2">    robot.send()
+</span></code></pre>
+<p>这段为发送所有的数据组，sleep为阻塞线程，防止串口发送频率太快导致报错<br>
+<a href="akatsuki-kaze.github.io">BACK</a></p>
