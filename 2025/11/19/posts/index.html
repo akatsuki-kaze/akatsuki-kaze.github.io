@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>MTI_volleyball_opensource | akatsuki kaze&#39;s blogs</title>
+    <meta name="author" content="akatsuki kaze" />
+    <meta name="description" content="a personal blog" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AKATSUKI KAZE&#39;S BLOGS</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AKATSUKI KAZE&#39;S BLOGS</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>MTI_volleyball_opensource</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/11/19
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/robocon/" style="color: #ffa2c4">
+                    robocon
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="MTI战队视觉方案开源"><a href="#MTI战队视觉方案开源" class="headerlink" title="MTI战队视觉方案开源"></a>MTI战队视觉方案开源</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><hr>
+<p>在初步研究了排球比赛的规则之后，我们组内成员偏向于认为视觉方案在这次比赛中可能会有一个比较重要的作用。但是在实际比赛中，我们发现部分队伍因为灯光影响而放弃视觉方案。部分学校则是采取了风格特异的抗干扰方案排除灯光影响。例如某大学是采取了现场标记数据集，而另一个大学则是数据集一开始就使用蓝色为主的排球，由此达成抗干扰效果。尽管由于其他问题我们的视觉识别并未起到作用，但是鉴于实地测试表现我决定仍然将其开源。电控部分代码则开源在<a target="_blank" rel="noopener" href="https://github.com/Enecell/CURC-Robocon2025-Volleyball_MTI">这个仓库</a>。本代码在<a target="_blank" rel="noopener" href="https://github.com/akatsuki-kaze/MTI_volleyball_opensource/tree/main/fjut_volleyball_R1">这里</a>开源,在闲鱼购买请联系原作者<a href="mailto:&#x31;&#54;&#x35;&#50;&#49;&#x30;&#55;&#x34;&#55;&#52;&#x40;&#x71;&#x71;&#x2e;&#x63;&#111;&#x6d;">1652107474@qq.com</a><br></p>
+<h2 id="一、代码功能综述"><a href="#一、代码功能综述" class="headerlink" title="一、代码功能综述"></a>一、代码功能综述</h2><hr>
+<p>本代码结构为d415_ubuntu.py作为主程序，anti_light.py作为抗灯光部分，Serial_akatsuki_simple.py作为串口通讯相关的函数处理（包括数据内容以及编码发送），pid_akatsuki.py是用于跟踪的pid控制器。run.bat是为win环境准备的启动程序（win版本主程序为d415）。<br><br>本代码不依赖ros，需求python版本3.9及以上，3.10经过测试稳定运行。要求库已经内置在requirementa.txt中。ubuntu需要使用python命令启动。程序启动时需要接入xinput支持的手柄，realsense d4系列带rgb摄像头（d410可以使用深度摄像头传输rgb流，d430不行），以及ch340（我们的方案是自带ch340的nrf24射频）</p>
+<h2 id="二、主函数代码解析"><a href="#二、主函数代码解析" class="headerlink" title="二、主函数代码解析"></a>二、主函数代码解析</h2><hr>
+<p>12行开始代码部分</p>
+<pre><code>pipeline = rs.pipeline()  #定义流程pipeline
+config = rs.config()   #定义配置config
+config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 60)  #配置depth流
+config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 60)   #配置color流
+profile = pipeline.start(config)  #流程开始
+align_to = rs.stream.color  #与color流对齐
+align = rs.align(align_to)
+</code></pre>
+<p>以上是realsense相关的初始化<br></p>
+<pre><code># 全局变量,用于存储模型和摄像头对象
+model = None
+cap = None
+track = 0
+act_model = 0  # 用于控制动作的变量
+X,Y,RIGHT_X,RIGHT_Y= 0,0,0,0    # 控制移动的变量
+# 设置模型配置
+script_dir = Path(__file__).parent
+file_path = script_dir / &#39;model&#39; / &#39;yolo11s.pt&#39;
+
+model_config = {
+    &#39;model_path&#39;: str(file_path),
+    &#39;download_url&#39;: &#39;https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n.pt&#39;
+}
+
+# 推理参数
+predict_config = {
+    &#39;conf_thres&#39;: 0.6,
+    &#39;iou_thres&#39;: 0.2,
+    &#39;imgsz&#39;: 640,
+    &#39;line_width&#39;: 2,
+    &#39;device&#39;: &#39;cuda:0&#39; if torch.cuda.is_available() else &#39;cpu&#39;
+}
+def init_inference(confidence, iou):
+    global model
+    # 加载 YOLO 模型
+    model = YOLO(model_config[&#39;model_path&#39;]).to(predict_config[&#39;device&#39;])
+    return True
+</code></pre>
+<p>这里是关于yolo推理部分的初始化，其中<code>X,Y,RIGHT_X,RIGHT_Y= 0,0,0,0</code>会在稍后作为传入信息数组的变量，提前进行全局声明和初始化。<code>model_config</code>是模型的路径，仍然保留了网络下载路径，但是实际代码中没有相关功能。<code>init_inference</code>函数用于初始化模型，若初始化成功会返回true。<br><br>接下来直接转到识别部分</p>
+<pre><code class="language-async">    global frame1,rgb,center1
+    # 读取摄像头的帧
+    frame1 = rgb.copy()
+    # 使用 YOLO 模型进行推理,并传入置信度和 IoU 阈值
+    results1 = model(frame1, conf=0.5, iou=0.7)
+    detect_len = len(results1[0].boxes)  #获取检测结果的长度
+    # 获取检测结果的坐标并绘制检测框    
+    boxes1 = []
+    if detect_len != 0:
+        for r in results1:
+            for box in r.boxes:
+                xyxy = box.xyxy[0].cpu().numpy().astype(int)
+                boxes1.append(xyxy)
+                cv2.rectangle(frame1, (xyxy[0], xyxy[1]), (xyxy[2], xyxy[3]), (0, 255, 0), 2)
+                center1 = np.array([x_center1, y_center1])
+    else:
+        print(&quot;未检测到目标&quot;)
+        center1 = np.array([320, 5])
+</code></pre>
+<p>这段代码对应yolo的识别部分。由于anti_light代码在nuc上，后续会惊醒补充。<br><br>接下来来到代码的主函数部分，108行开始：</p>
+<pre><code class="language-model">    global actX,act_dis
+    x_center1 = 320
+    y_center1 = 240
+    center1 = np.array([x_center1, y_center1])
+
+    actX = pid.ProportionalPID(
+        kd= 260,
+        ki= 0,
+        kp= 180,
+        deadband= 0.01
+    )
+    act_dis = pid.ProportionalPID(
+        kd= 220,
+        ki= 0,
+        kp= 160,
+        deadband= 0.001
+    )
+</code></pre>
+<p>提前声明部分变量，实例化需要用到的两个pid控制器（对应水平和竖直方向）<br><br>接下来是串口选择部分，这个部分目前只有win版本有效，ubuntu版本已经删除。选择串口时，用手柄的hat（十字键）进行选择，上下为加减5，左右加减1（ubuntu版本功能为上下加减1）。选择完成后，按下手柄A按键确定串口。<br><br>170行的<code>asyncio.run(detect())   #协程推理</code>使用了asyncio库进行协程，达到优化推理产生的控制延迟的效果。实际上发现在一定程度上也优化了推理性能。<br><br>173行开始的这段代码中</p>
+<pre><code>    x = int(center1[0])
+    y = int(center1[1])
+    #(x, y)点的真实深度值
+    dis = aligned_depth_frame.get_distance(x, y)  
+    #(x, y)点在相机坐标系下的真实值,为一个三维向量。其中camera_coordinate[2]仍为dis,camera_coordinate[0]和camera_coordinate[1]为相机坐标系下的xy真实距离。
+    camera_coordinate = rs.rs2_deproject_pixel_to_point(depth_intrin, [x, y], dis)  
+    if camera_coordinate != (0.0,0.0,0.0):
+        last_coordinate = camera_coordinate
+        print(camera_coordinate)
+    else:
+        print(last_coordinate)
+</code></pre>
+<p>这段代码会对像素坐标进行获取。由于深度摄像头在距离过近的目标识别会输出0，0，0的坐标值，因此会对目标最后的位置进行检测，决定是否写入坐标值<br></p>
+<p>接下来是198行，对应动作组</p>
+<pre><code>    # 执行动作组
+    if sc.joystick.get_button(13) == 1:
+        if camera_coordinate[2] !=0.0:
+            act_group = 1
+        else:
+            act_group = 2
+    else:
+        act_group = 0
+
+    action_group(act_group)
+    act_group = 0
+</code></pre>
+<p>这段代码在手柄左摇杆按下时会进入自动跟踪状态，同时通过目标不同状态选择动作组。在执行程序<code>action_group</code>结束后<code>act_group</code>会归为0，防止动作重复执行。</p>
+<pre><code>    sc.time.sleep(0.01)
+    robot.send()
+</code></pre>
+<p>这段为发送所有的数据组，sleep为阻塞线程，防止串口发送频率太快导致报错<br></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 akatsuki kaze&#39;s blogs
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;akatsuki kaze
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            <a href="/beian.miit.gov.cn">闽ICP备2025090107号-1</a>
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>
