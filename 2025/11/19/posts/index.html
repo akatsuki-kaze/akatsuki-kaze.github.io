@@ -175,7 +175,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/robocon/" style="color: #ffa2c4">
+                <a href="/tags/robocon/" style="color: #00a596">
                     robocon
                 </a>
             </span>
@@ -186,7 +186,7 @@
     
     <div class="content" v-pre>
         <h1 id="MTI战队视觉方案开源"><a href="#MTI战队视觉方案开源" class="headerlink" title="MTI战队视觉方案开源"></a>MTI战队视觉方案开源</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><hr>
-<p>在初步研究了排球比赛的规则之后，我们组内成员偏向于认为视觉方案在这次比赛中可能会有一个比较重要的作用。但是在实际比赛中，我们发现部分队伍因为灯光影响而放弃视觉方案。部分学校则是采取了风格特异的抗干扰方案排除灯光影响。例如某大学是采取了现场标记数据集，而另一个大学则是数据集一开始就使用蓝色为主的排球，由此达成抗干扰效果。尽管由于其他问题我们的视觉识别并未起到作用，但是鉴于实地测试表现我决定仍然将其开源。电控部分代码则开源在<a target="_blank" rel="noopener" href="https://github.com/Enecell/CURC-Robocon2025-Volleyball_MTI">这个仓库</a>。本代码在<a target="_blank" rel="noopener" href="https://github.com/akatsuki-kaze/MTI_volleyball_opensource/tree/main/fjut_volleyball_R1">这里</a>开源,在闲鱼购买请联系原作者<a href="mailto:&#x31;&#54;&#53;&#x32;&#49;&#x30;&#55;&#52;&#x37;&#x34;&#64;&#113;&#113;&#46;&#99;&#111;&#109;">1652107474@qq.com</a><br></p>
+<p>在初步研究了排球比赛的规则之后，我们组内成员偏向于认为视觉方案在这次比赛中可能会有一个比较重要的作用。但是在实际比赛中，我们发现部分队伍因为灯光影响而放弃视觉方案。部分学校则是采取了风格特异的抗干扰方案排除灯光影响。例如某大学是采取了现场标记数据集，而另一个大学则是数据集一开始就使用蓝色为主的排球，由此达成抗干扰效果。尽管由于其他问题我们的视觉识别并未起到作用，但是鉴于实地测试表现我决定仍然将其开源。电控部分代码则开源在<a target="_blank" rel="noopener" href="https://github.com/Enecell/CURC-Robocon2025-Volleyball_MTI">这个仓库</a>。本代码在<a target="_blank" rel="noopener" href="https://github.com/akatsuki-kaze/MTI_volleyball_opensource/tree/main/fjut_volleyball_R1">这里</a>开源,在闲鱼购买请联系原作者<a href="mailto:&#x31;&#x36;&#53;&#x32;&#x31;&#48;&#x37;&#52;&#55;&#x34;&#x40;&#x71;&#113;&#46;&#x63;&#x6f;&#109;">1652107474@qq.com</a><br></p>
 <h2 id="一、代码功能综述"><a href="#一、代码功能综述" class="headerlink" title="一、代码功能综述"></a>一、代码功能综述</h2><hr>
 <p>本代码结构为d415_ubuntu.py作为主程序，anti_light.py作为抗灯光部分，Serial_akatsuki_simple.py作为串口通讯相关的函数处理（包括数据内容以及编码发送），pid_akatsuki.py是用于跟踪的pid控制器。run.bat是为win环境准备的启动程序（win版本主程序为d415）。<br><br>本代码不依赖ros，需求python版本3.9及以上，3.10经过测试稳定运行。要求库已经内置在requirementa.txt中。ubuntu需要使用python命令启动。程序启动时需要接入xinput支持的手柄，realsense d4系列带rgb摄像头（d410可以使用深度摄像头传输rgb流，d430不行），以及ch340（我们的方案是自带ch340的nrf24射频）</p>
 <h2 id="二、主函数代码解析"><a href="#二、主函数代码解析" class="headerlink" title="二、主函数代码解析"></a>二、主函数代码解析</h2><hr>
