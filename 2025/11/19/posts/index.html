@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
-    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="icon" href="/index.html/images/avatar.jpg" />
     <link rel="preconnect" href="https://s4.zstatic.net" />
 <script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
 <link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
@@ -32,21 +32,21 @@
     rel="stylesheet"
     href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
 />
-<script src="/js/lib/highlight.js"></script>
+<script src="/index.html/js/lib/highlight.js"></script>
 
 
 
-<script src="/js/lib/preview.js"></script>
-
-
-
-
+<script src="/index.html/js/lib/preview.js"></script>
 
 
 
 
 
-<link rel="stylesheet" href="/css/main.css" />
+
+
+
+
+<link rel="stylesheet" href="/index.html/css/main.css" />
 
 <meta name="generator" content="Hexo 8.1.1"></head>
 <body>
@@ -56,37 +56,37 @@
                 <div id="loading-circle">
                     <h2>LOADING</h2>
                     <p>加载过慢请开启缓存 浏览器默认开启</p>
-                    <img src="/images/loading.gif" />
+                    <img src="/index.html/images/loading.gif" />
                 </div>
             </div>
         </transition>
         <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
     <nav id="desktop-menu">
-        <a class="title" href="/">
+        <a class="title" href="/index.html/">
             <span>AKATSUKI KAZE&#39;S BLOGS</span>
         </a>
         
-        <a href="/">
+        <a href="/index.html/">
             <i class="fa-solid fa-house fa-fw"></i>
             <span>&ensp;Home</span>
         </a>
         
-        <a href="/about">
+        <a href="/index.html/about">
             <i class="fa-solid fa-id-card fa-fw"></i>
             <span>&ensp;About</span>
         </a>
         
-        <a href="/archives">
+        <a href="/index.html/archives">
             <i class="fa-solid fa-box-archive fa-fw"></i>
             <span>&ensp;Archives</span>
         </a>
         
-        <a href="/categories">
+        <a href="/index.html/categories">
             <i class="fa-solid fa-bookmark fa-fw"></i>
             <span>&ensp;Categories</span>
         </a>
         
-        <a href="/tags">
+        <a href="/index.html/tags">
             <i class="fa-solid fa-tags fa-fw"></i>
             <span>&ensp;Tags</span>
         </a>
@@ -100,7 +100,7 @@
         <transition name="slide">
             <div class="items" v-show="showMenuItems">
                 
-                <a href="/">
+                <a href="/index.html/">
                     <div class="item">
                         <div style="min-width: 20px; max-width: 50px; width: 10%">
                             <i class="fa-solid fa-house fa-fw"></i>
@@ -109,7 +109,7 @@
                     </div>
                 </a>
                 
-                <a href="/about">
+                <a href="/index.html/about">
                     <div class="item">
                         <div style="min-width: 20px; max-width: 50px; width: 10%">
                             <i class="fa-solid fa-id-card fa-fw"></i>
@@ -118,7 +118,7 @@
                     </div>
                 </a>
                 
-                <a href="/archives">
+                <a href="/index.html/archives">
                     <div class="item">
                         <div style="min-width: 20px; max-width: 50px; width: 10%">
                             <i class="fa-solid fa-box-archive fa-fw"></i>
@@ -127,7 +127,7 @@
                     </div>
                 </a>
                 
-                <a href="/categories">
+                <a href="/index.html/categories">
                     <div class="item">
                         <div style="min-width: 20px; max-width: 50px; width: 10%">
                             <i class="fa-solid fa-bookmark fa-fw"></i>
@@ -136,7 +136,7 @@
                     </div>
                 </a>
                 
-                <a href="/tags">
+                <a href="/index.html/tags">
                     <div class="item">
                         <div style="min-width: 20px; max-width: 50px; width: 10%">
                             <i class="fa-solid fa-tags fa-fw"></i>
@@ -175,7 +175,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/robocon/" style="color: #ffa2c4">
+                <a href="/index.html/tags/robocon/" style="color: #ffa2c4">
                     robocon
                 </a>
             </span>
@@ -185,11 +185,11 @@
     </div>
     
     <div class="content" v-pre>
-        <h1 id="MTI战队视觉方案开源"><a href="#MTI战队视觉方案开源" class="headerlink" title="MTI战队视觉方案开源"></a>MTI战队视觉方案开源</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><hr>
-<p>在初步研究了排球比赛的规则之后，我们组内成员偏向于认为视觉方案在这次比赛中可能会有一个比较重要的作用。但是在实际比赛中，我们发现部分队伍因为灯光影响而放弃视觉方案。部分学校则是采取了风格特异的抗干扰方案排除灯光影响。例如某大学是采取了现场标记数据集，而另一个大学则是数据集一开始就使用蓝色为主的排球，由此达成抗干扰效果。尽管由于其他问题我们的视觉识别并未起到作用，但是鉴于实地测试表现我决定仍然将其开源。电控部分代码则开源在<a target="_blank" rel="noopener" href="https://github.com/Enecell/CURC-Robocon2025-Volleyball_MTI">这个仓库</a>。本代码在<a target="_blank" rel="noopener" href="https://github.com/akatsuki-kaze/MTI_volleyball_opensource/tree/main/fjut_volleyball_R1">这里</a>开源,在闲鱼购买请联系原作者<a href="mailto:&#x31;&#54;&#x35;&#50;&#49;&#x30;&#55;&#x34;&#55;&#52;&#x40;&#x71;&#x71;&#x2e;&#x63;&#111;&#x6d;">1652107474@qq.com</a><br></p>
-<h2 id="一、代码功能综述"><a href="#一、代码功能综述" class="headerlink" title="一、代码功能综述"></a>一、代码功能综述</h2><hr>
+        <h1><span id="mti战队视觉方案开源">MTI战队视觉方案开源</span></h1><h2><span id="前言">前言</span></h2><hr>
+<p>在初步研究了排球比赛的规则之后，我们组内成员偏向于认为视觉方案在这次比赛中可能会有一个比较重要的作用。但是在实际比赛中，我们发现部分队伍因为灯光影响而放弃视觉方案。部分学校则是采取了风格特异的抗干扰方案排除灯光影响。例如某大学是采取了现场标记数据集，而另一个大学则是数据集一开始就使用蓝色为主的排球，由此达成抗干扰效果。尽管由于其他问题我们的视觉识别并未起到作用，但是鉴于实地测试表现我决定仍然将其开源。电控部分代码则开源在<a target="_blank" rel="noopener" href="https://github.com/Enecell/CURC-Robocon2025-Volleyball_MTI">这个仓库</a>。本代码在<a target="_blank" rel="noopener" href="https://github.com/akatsuki-kaze/MTI_volleyball_opensource/tree/main/fjut_volleyball_R1">这里</a>开源,在闲鱼购买请联系原作者<a href="mailto:&#49;&#54;&#53;&#50;&#49;&#48;&#55;&#52;&#55;&#x34;&#64;&#113;&#x71;&#46;&#99;&#111;&#x6d;">1652107474@qq.com</a><br></p>
+<h2><span id="一-代码功能综述">一、代码功能综述</span></h2><hr>
 <p>本代码结构为d415_ubuntu.py作为主程序，anti_light.py作为抗灯光部分，Serial_akatsuki_simple.py作为串口通讯相关的函数处理（包括数据内容以及编码发送），pid_akatsuki.py是用于跟踪的pid控制器。run.bat是为win环境准备的启动程序（win版本主程序为d415）。<br><br>本代码不依赖ros，需求python版本3.9及以上，3.10经过测试稳定运行。要求库已经内置在requirementa.txt中。ubuntu需要使用python命令启动。程序启动时需要接入xinput支持的手柄，realsense d4系列带rgb摄像头（d410可以使用深度摄像头传输rgb流，d430不行），以及ch340（我们的方案是自带ch340的nrf24射频）</p>
-<h2 id="二、主函数代码解析"><a href="#二、主函数代码解析" class="headerlink" title="二、主函数代码解析"></a>二、主函数代码解析</h2><hr>
+<h2><span id="二-主函数代码解析">二、主函数代码解析</span></h2><hr>
 <p>12行开始代码部分</p>
 <pre><code>pipeline = rs.pipeline()  #定义流程pipeline
 config = rs.config()   #定义配置config
@@ -315,7 +315,7 @@ def init_inference(confidence, iou):
     <div id="footer-wrap">
         <div>
             &copy;
-            2022 - 2025 akatsuki kaze&#39;s blogs
+            2025 - 2025 akatsuki kaze&#39;s blogs
             <span id="footer-icon">
                 <i class="fa-solid fa-font-awesome fa-fw"></i>
             </span>
@@ -329,7 +329,7 @@ def init_inference(confidence, iou):
         <div>
             备案号：
             
-            <a href="/beian.miit.gov.cn">闽ICP备2025090107号-1</a>
+            <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn">闽ICP备2025090107号-1</a>
             
         </div>
         
@@ -345,7 +345,7 @@ def init_inference(confidence, iou):
         </transition>
         
     </div>
-    <script src="/js/main.js"></script>
+    <script src="/index.html/js/main.js"></script>
     
     
 
