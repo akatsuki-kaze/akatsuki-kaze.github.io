@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
-    <link rel="icon" href="/index.html/images/avatar.jpg" />
+    <link rel="icon" href="/images/avatar.jpg" />
     <link rel="preconnect" href="https://s4.zstatic.net" />
 <script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
 <link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
@@ -32,21 +32,21 @@
     rel="stylesheet"
     href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
 />
-<script src="/index.html/js/lib/highlight.js"></script>
+<script src="/js/lib/highlight.js"></script>
 
 
 
-<script src="/index.html/js/lib/preview.js"></script>
-
-
-
-
+<script src="/js/lib/preview.js"></script>
 
 
 
 
 
-<link rel="stylesheet" href="/index.html/css/main.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
 
 <meta name="generator" content="Hexo 8.1.1"></head>
 <body>
@@ -56,37 +56,37 @@
                 <div id="loading-circle">
                     <h2>LOADING</h2>
                     <p>加载过慢请开启缓存 浏览器默认开启</p>
-                    <img src="/index.html/images/loading.gif" />
+                    <img src="/images/loading.gif" />
                 </div>
             </div>
         </transition>
         <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
     <nav id="desktop-menu">
-        <a class="title" href="/index.html/">
+        <a class="title" href="/">
             <span>AKATSUKI KAZE&#39;S BLOGS</span>
         </a>
         
-        <a href="/index.html/">
+        <a href="/">
             <i class="fa-solid fa-house fa-fw"></i>
             <span>&ensp;Home</span>
         </a>
         
-        <a href="/index.html/about">
+        <a href="/about">
             <i class="fa-solid fa-id-card fa-fw"></i>
             <span>&ensp;About</span>
         </a>
         
-        <a href="/index.html/archives">
+        <a href="/archives">
             <i class="fa-solid fa-box-archive fa-fw"></i>
             <span>&ensp;Archives</span>
         </a>
         
-        <a href="/index.html/categories">
+        <a href="/categories">
             <i class="fa-solid fa-bookmark fa-fw"></i>
             <span>&ensp;Categories</span>
         </a>
         
-        <a href="/index.html/tags">
+        <a href="/tags">
             <i class="fa-solid fa-tags fa-fw"></i>
             <span>&ensp;Tags</span>
         </a>
@@ -100,7 +100,7 @@
         <transition name="slide">
             <div class="items" v-show="showMenuItems">
                 
-                <a href="/index.html/">
+                <a href="/">
                     <div class="item">
                         <div style="min-width: 20px; max-width: 50px; width: 10%">
                             <i class="fa-solid fa-house fa-fw"></i>
@@ -109,7 +109,7 @@
                     </div>
                 </a>
                 
-                <a href="/index.html/about">
+                <a href="/about">
                     <div class="item">
                         <div style="min-width: 20px; max-width: 50px; width: 10%">
                             <i class="fa-solid fa-id-card fa-fw"></i>
@@ -118,7 +118,7 @@
                     </div>
                 </a>
                 
-                <a href="/index.html/archives">
+                <a href="/archives">
                     <div class="item">
                         <div style="min-width: 20px; max-width: 50px; width: 10%">
                             <i class="fa-solid fa-box-archive fa-fw"></i>
@@ -127,7 +127,7 @@
                     </div>
                 </a>
                 
-                <a href="/index.html/categories">
+                <a href="/categories">
                     <div class="item">
                         <div style="min-width: 20px; max-width: 50px; width: 10%">
                             <i class="fa-solid fa-bookmark fa-fw"></i>
@@ -136,7 +136,7 @@
                     </div>
                 </a>
                 
-                <a href="/index.html/tags">
+                <a href="/tags">
                     <div class="item">
                         <div style="min-width: 20px; max-width: 50px; width: 10%">
                             <i class="fa-solid fa-tags fa-fw"></i>
@@ -175,7 +175,7 @@
             
             <span class="tag">
                 
-                <a href="/index.html/tags/robocon/" style="color: #00a596">
+                <a href="/tags/robocon/" style="color: #ff7d73">
                     robocon
                 </a>
             </span>
@@ -238,7 +238,7 @@ F_32
 <h1 id="四、下载数据集"><a href="#四、下载数据集" class="headerlink" title="四、下载数据集"></a>四、下载数据集</h1><h2 id="（一）下载"><a href="#（一）下载" class="headerlink" title="（一）下载"></a>（一）下载</h2><p>&ensp;您可以通过各种方式下载，这里不再赘述</p>
 <h2 id="（二）使用"><a href="#（二）使用" class="headerlink" title="（二）使用"></a>（二）使用</h2><p>&ensp;在本项目的tools文件夹下会有各种文件处理工具，具体使用说明请参阅tools下的readme文档。由于部分工具可能非本人上传，因此请谨慎使用或检查源码自行评估使用。上传的工具必须为c源码或python的py程序，<font color=red size=6>上传工具源码必须可见！这是根本原则！</font><br>在进行完数据集合并后，我建议您自行半随机抽取图像进行数据集的划分，因为不同学校拍摄环境不同，训练效果也不同，若均匀分配则可以使模型泛化能力更强。具体如何操作看您设计。</p>
 <h1 id="五、如何参与"><a href="#五、如何参与" class="headerlink" title="五、如何参与"></a>五、如何参与</h1><h2 id="获取联系方式或参与讨论："><a href="#获取联系方式或参与讨论：" class="headerlink" title="获取联系方式或参与讨论："></a>获取联系方式或参与讨论：</h2><p>&ensp;添加个人联系方式：1652107474（QQ）或者进入QQ群1065597020。</p>
-<h2 id="参与协作："><a href="#参与协作：" class="headerlink" title="参与协作："></a>参与协作：</h2><p>&ensp;将您标注的数据集的图片（总览）以及数据集通过邮箱发给本人（<a href="mailto:&#49;&#54;&#53;&#x32;&#49;&#48;&#55;&#x34;&#55;&#x34;&#64;&#113;&#x71;&#x2e;&#99;&#111;&#109;">1652107474@qq.com</a>）,若您介意，只需要发送标注好的部分图像也可，本人将会在三个工作日内完成审核并且邀请您加入私有仓库协作，请在发送邮件时注明学校以及参加KFS标注协作，若审核不及时请在群内艾特一下本人。</p>
+<h2 id="参与协作："><a href="#参与协作：" class="headerlink" title="参与协作："></a>参与协作：</h2><p>&ensp;将您标注的数据集的图片（总览）以及数据集通过邮箱发给本人（<a href="mailto:&#49;&#54;&#x35;&#50;&#49;&#x30;&#x37;&#x34;&#55;&#x34;&#64;&#113;&#113;&#46;&#99;&#x6f;&#109;">1652107474@qq.com</a>）,若您介意，只需要发送标注好的部分图像也可，本人将会在三个工作日内完成审核并且邀请您加入私有仓库协作，请在发送邮件时注明学校以及参加KFS标注协作，若审核不及时请在群内艾特一下本人。</p>
 <h1 id="六、碎碎念"><a href="#六、碎碎念" class="headerlink" title="六、碎碎念"></a>六、碎碎念</h1><p>&ensp;由于这是多人共创项目，并且由于加入时间先后，队员数量等原因必然会产生各个学校上传数据集不同等的现象。例如本人队伍目前只有本人一位正式的视觉组成员，因此产出数据集必然是不同等的，如果您需要根据已有总量评估，请联系本人，我也会尽量配合您进行数据集数量评估。我也并未强制要求您将所有数据集上传，仅需要上传您认为值得上传的部分，希望参与本项目的学校可以对此做好心理准备<br>&ensp;我仍然衷心希望RC可以是一个开放包容的比赛氛围。对于贡献较高的队伍在比赛时我们将会为其准备一些神秘小礼品以示心意。本项目仍然在完善阶段，欢迎踊跃参与。</p>
 
     </div>
@@ -285,7 +285,7 @@ F_32
         </transition>
         
     </div>
-    <script src="/index.html/js/main.js"></script>
+    <script src="/js/main.js"></script>
     
     
 
