@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>cuda_install | akatsuki kaze&#39;s blogs</title>
+    <meta name="author" content="akatsuki kaze" />
+    <meta name="description" content="a personal blog" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AKATSUKI KAZE&#39;S BLOGS</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AKATSUKI KAZE&#39;S BLOGS</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>cuda_install</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/11/21
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/tutorial/" style="color: #ffa2c4">
+                    tutorial
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="关于如何安装CUDA相关的神经网络环境"><a href="#关于如何安装CUDA相关的神经网络环境" class="headerlink" title="关于如何安装CUDA相关的神经网络环境"></a>关于如何安装CUDA相关的神经网络环境</h1><h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>其实关于如何安装，网上不论是简单还是方便的做法都已经有很多了。之所以写这篇文章主要是为了方便自己留档以及给小登传阅——不管怎么说有一个统一的资料存放总是很方便的，遂书写此教程送给我们可爱的小登们。</p>
+<h2 id="电脑常识普及"><a href="#电脑常识普及" class="headerlink" title="电脑常识普及"></a>电脑常识普及</h2><p>首先，要参与神经网络，强化学习相关的东西，肯定是要对电脑有点基础的。因此正确认识电脑是非常必要的，这一章可能会非常长，花大量篇幅来讲述电脑相关的知识和常识。毕竟大部分学生<strong>高中毕业前都没碰过电脑啊！</strong> 所以对于电脑常识的普及会是非常重要的，接下来让我们娓娓道来。</p>
+<p>对于很多人而言，电脑和手机一样都是按下开机键就会亮起来的东西。但是你是否清楚，在按下开机按键后发生了什么？在你打游戏，听音乐的时候，你的电脑又在做什么？</p>
+<p>首先，我们要从——当然不太可能是第一台电脑说起——计算器说起。电脑从诞生之初就是为了辅助我们完成复杂的运算准备的。1+1&#x3D;2，这是还没出生的小朋友都知道的。但是，一堆数不清的1+1，2+2，就需要大量的时间去运算。因此人类创造了计算机来帮我们自动化的完成一些复杂的或者重复的工作。当然，以前的计算机和现在的计算机差别十分甚至九分的大，就不展开讨论了。现代的计算机，其功能性也远高于以前的计算机，但是总体原理并没有太大变化。<br>对于计算机而言，既然他是负责进行计算的设备，那么首先它需要有一个能够进行计算的单元，而对于这个很重要的计算单元，我们称之为CPU——Center Processing Unit。CPU在计算机中的作用，主要是负责大部分计算，一个CPU一次只能处理一条计算任务，但是得益于一些后来技术的提升，CPU已经可以承担大部分计算工作了。<br>那么，CPU既然要进行超高速的计算，就需要对大量数据进行处理。但是处理完的数据会存放在哪里呢？简单来说，其实就放在RAM里，也就是常说的“内存条”。就像工具永远是放在手边拿起来用最快，但是放在手边你总得把他放回架子上——RAM的速度很快，但是断电后会清除数据。因此，对于重要的计算结果，就需要一个能够长时间储存的地方——硬盘<br>硬盘就是常说的存储，存储空间不够了也就是说硬盘需要加钱扩容咯！<br>然而，随着时代发展，一项新的技术和需求出现了——三维渲染。虽然CPU计算速度和能力很强，但是三维的计算有一个特点——如果没有同时的大范围的渲染，三维的图像将会变得很卡，因为CPU只有线性的处理能力，并不能同时处理大量工作。因此，一项新的技术应运而生，那就是GPU——Graphics Processing Unit，GPU有一个特点就是可以进行大量的同时运算，因此很适合图像处理。但是同时，适合图像处理也意味着另外一件事——神经网络这种需要大量并行计算的算法。<br>让我们回顾一下，CPU适合高速线性运算，GPU适合并行计算。然后就是关于CPU和GPU常见的厂家，CPU领域英特尔，AMD；GPU领域英伟达，AMD。其中我们着重讲述英伟达的GPU——RTX（GTX）系列显卡。<br>大部分同学的电脑上应该都有一个绿色的GeForce小贴纸，这意味着你的电脑搭载了新型的英伟达游戏显卡。而英伟达十分重视AI领域发展，其深知GPU的并行计算优势，为了方便开发，他早有准备，做好了工具箱放在你手上，其名为<strong>CUDA Toolkit</strong> 。后文称工具集。</p>
+<h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><h3 id="确定版本"><a href="#确定版本" class="headerlink" title="确定版本"></a>确定版本</h3><p>我们常用的onnx，pytorch框架都将会依赖于工具集和英伟达神经网络运行库cudnn。下文将以win和Ubuntu环境分别讲述安装。<br>首先，确认好你需要进行安装的电脑的显卡驱动，一般而言都是安装好的，如图则是安装了驱动，若没有请按顺序阅读文章安装。<br><img src="/images%5Ccuda-install%5Cgeforce.png" alt="nvidia"><br>首先，前往<a target="_blank" rel="noopener" href="https://www.nvidia.cn/">英伟达官网</a>寻找适合自己的驱动，下载安装好以后，按win，在搜索框输入power，找到power shell，打开。<br><img src="/images%5Ccuda-install%5Cpower.png" alt="powerShell"><br>输入<code>nvidia-smi</code>，找到<code>CUDA Version</code>，记下后面的版本号，这代表你能安装的最高的工具集版本。但是请注意！<strong>根据你所需要的项目安装正确的版本！而不是一味的跟着教程！</strong><br>接下来，打开<a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-toolkit-archive">工具集下载链接</a>,找到合适的版本，点击进入，不能超过上述的&#96;&#96;&#96;nvidia-smi&#96;&#96;获取的版本。</p>
+<h3 id="下载完成后"><a href="#下载完成后" class="headerlink" title="下载完成后"></a>下载完成后</h3><p>双击打开安装程序，设置好安装路径。个人建议直接按照默认路径，若不为默认路径则需要记下安装路径后续安装需要用到。<img src="/images%5Ccuda-install%5Ccuda-installer.png" alt="installer"><br>接下来一路安装即可<br><img src="/images%5Ccuda-install%5Cins-1.png" alt="ins"><br>选择自定义安装<br><img src="/images%5Ccuda-install%5Cins-2.png" alt="ins"><br>全部勾选。新版本cuda有更新，多出来的选项可选可不选。<br><img src="/images%5Ccuda-install%5Cins-3.png" alt="ins"><br>记住你的cuda安装路径！如果是默认路径一般是<code>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\你的cuda版本</code><br>安装完成后重启电脑，命令行输入nvcc -V,如果有如下图信息则是安装成功<br><img src="/images%5Ccuda-install%5CnvccV.png" alt="nvcc"></p>
+<h3 id="安装cudnn"><a href="#安装cudnn" class="headerlink" title="安装cudnn"></a>安装cudnn</h3><p>cudnn是英伟达显卡运行神经网络最重要的工具，并且与cuda版本严格对应。首先打开<a target="_blank" rel="noopener" href="https://developer.nvidia.com/rdp/cudnn-archive">cudnn下载</a>，首次使用可能需要注册账号，注册完根据自己的cuda版本下载cudnn库。下载时选择对应的zip压缩包，下载完后解压，会出现三个文件夹：将这三个文件夹的内容物复制到前文提到的cuda安装文件夹的同名文件夹内即可<img src="/images%5Ccuda-install%5CcudnnF.png" alt="cudnnF"><br>为cuDNN添加环境变量：<br>找到环境变量-系统变量-path，分别将如下三个变量添加进去，完成安装。<br><img src="/images%5Ccuda-install%5Cpath.png" alt="path"></p>
+<h3 id="ubuntu下安装"><a href="#ubuntu下安装" class="headerlink" title="ubuntu下安装"></a>ubuntu下安装</h3><p>其实仅一点不同：ubuntu安装cuda可以直接借助sh命令行安装<img src="/images%5Ccuda-install%5Cubuntu.png" alt="ubuntu">看最下面两行，按下ctrl+alt+t唤起终端后分别输入就安装成功了，同样输入<code>nvidia-smi</code>，找到<code>CUDA Version</code>。由于使用ubuntu系统默认已经有不少计算机基础以及独立搜索解决问题的能力，因此本篇不再赘述，只引用一篇优秀的文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/h3c4lenovo/article/details/119003405">文章链接</a>其中gcc相关问题可以先不做解决，安装失败再处理。在ubuntu进行操作只需要记住：永远不要动你的内核，尽量不要动系统组件，否则后果自负。<br>若对文章有疑惑可联系本人，侵权联系删除。</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2025 - 2025 akatsuki kaze&#39;s blogs
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;akatsuki kaze
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn">闽ICP备2025090107号-1</a>
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>
